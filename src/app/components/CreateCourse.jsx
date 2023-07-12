@@ -15,6 +15,7 @@ const AddCourseForm = () => {
     creator: "",
     videos: [{ videoTitle: "", videoUrl: "" }],
   });
+  const [loading, setLoading] = useState(false);
   const [categories, setCategories] = useState([]);
   const [creators, setCreators] = useState([]);
 
@@ -69,6 +70,7 @@ const AddCourseForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     try {
       const formDataToSend = new FormData();
@@ -89,9 +91,21 @@ const AddCourseForm = () => {
           "Content-Type": "multipart/form-data",
         },
       });
-      console.log(response.data);
+      setFormData({
+        title: "",
+        description: "",
+        thumbnail: null,
+        previewVideo: "",
+        price: 0,
+        category: "",
+        creator: "",
+        videos: [{ videoTitle: "", videoUrl: "" }],
+      });
+      setLoading(false);
+      window.location.href = "/";
     } catch (error) {
-      console.error(error);
+      setLoading(false);
+      console.error(error.response);
     }
   };
   useEffect(() => {
@@ -100,12 +114,12 @@ const AddCourseForm = () => {
   }, []);
   return (
     <div>
-      <h1 className="text-center font-bold my-4 text-2xl text-violet-800">
+      <h1 className="text-center font-bold my-4 text-4xl text-gray-800">
         CREATE NEW COURSE
       </h1>
       <form
         onSubmit={handleSubmit}
-        className="max-w-md bg-violet-100 p-9 rounded-lg mx-auto"
+        className="max-w-2xl bg-gray-100 p-9 rounded-lg mx-auto"
       >
         <label className="block mb-4 uppercase">
           <span className="text-gray-700">Title:</span>
@@ -115,7 +129,7 @@ const AddCourseForm = () => {
             value={formData.title}
             onChange={handleInputChange}
             required
-            className="border border-violet-600 rounded-[10px] mt-1 p-3 block w-full"
+            className="border border-gray-600 rounded-lg mt-1 p-3 block w-full focus:outline-none focus:ring-2 focus:ring-gray-500"
           />
         </label>
 
@@ -126,7 +140,7 @@ const AddCourseForm = () => {
             value={formData.description}
             onChange={handleInputChange}
             required
-            className="border border-violet-600 rounded-[10px]  mt-1 p-3 block w-full"
+            className="border border-gray-600 rounded-lg mt-1 p-3 block w-full focus:outline-none focus:ring-2 focus:ring-gray-500"
           />
         </label>
 
@@ -137,7 +151,7 @@ const AddCourseForm = () => {
             accept="image/*"
             onChange={handleFileChange}
             required
-            className="border border-violet-600 bg-white rounded-[10px] mt-1 p-3 block w-full"
+            className="border border-gray-600 bg-white rounded-lg mt-1 p-3 block w-full focus:outline-none focus:ring-2 focus:ring-gray-500"
           />
         </label>
 
@@ -149,7 +163,7 @@ const AddCourseForm = () => {
             value={formData.previewVideo}
             onChange={handleInputChange}
             required
-            className="border border-violet-600 rounded-[10px] mt-1 p-3 block w-full"
+            className="border border-gray-600 rounded-lg mt-1 p-3 block w-full focus:outline-none focus:ring-2 focus:ring-gray-500"
           />
         </label>
 
@@ -161,7 +175,7 @@ const AddCourseForm = () => {
             value={formData.price}
             onChange={handleInputChange}
             required
-            className="border border-violet-600 rounded-[10px] mt-1 p-3 block w-full"
+            className="border border-gray-600 rounded-lg mt-1 p-3 block w-full focus:outline-none focus:ring-2 focus:ring-gray-500"
           />
         </label>
 
@@ -172,7 +186,7 @@ const AddCourseForm = () => {
             value={formData.category}
             onChange={handleInputChange}
             required
-            className="border border-violet-600 rounded-[10px] mt-1 p-3 block w-full"
+            className="border border-gray-600 rounded-lg mt-1 p-3 block w-full focus:outline-none focus:ring-2 focus:ring-gray-500"
           >
             <option hidden>Select a category</option>
             {categories.map((category, index) => (
@@ -191,7 +205,7 @@ const AddCourseForm = () => {
             value={formData.creator}
             onChange={handleInputChange}
             required
-            className="border border-violet-600 rounded-[10px] mt-1 p-3 block w-full"
+            className="border border-gray-600 rounded-lg mt-1 p-3 block w-full focus:outline-none focus:ring-2 focus:ring-gray-500"
           >
             <option hidden>Select a creator</option>
             {creators.map((creator, index) => (
@@ -215,7 +229,7 @@ const AddCourseForm = () => {
                   handleVideoChange(index, "videoTitle", e.target.value)
                 }
                 placeholder="Video Title"
-                className="border border-violet-600 rounded-[10px] mr-2 mt-1 p-3 block w-full"
+                className="border border-gray-600 rounded-lg mr-2 mt-1 p-3 block w-full focus:outline-none focus:ring-2 focus:ring-gray-500"
               />
               <input
                 type="text"
@@ -225,14 +239,14 @@ const AddCourseForm = () => {
                   handleVideoChange(index, "videoUrl", e.target.value)
                 }
                 placeholder="Video URL"
-                className="border border-violet-600 rounded-[10px] mt-1 p-3 block w-full"
+                className="border border-gray-600 rounded-lg mt-1 p-3 block w-full focus:outline-none focus:ring-2 focus:ring-gray-500"
               />
             </div>
           ))}
           <button
             type="button"
             onClick={handleAddVideo}
-            className="bg-violet-500 float-right mb-3 hover:bg-violet-700 text-white font-bold py-1 px-2 rounded"
+            className="bg-gray-500 float-right mb-3 hover:bg-gray-700 text-white font-bold py-1 px-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500"
           >
             +
           </button>
@@ -240,7 +254,8 @@ const AddCourseForm = () => {
 
         <button
           type="submit"
-          className="bg-violet-700 hover:bg-violet-700 w-full text-white font-bold py-2 px-4 rounded"
+          disabled={loading}
+          className="bg-gray-700 hover:bg-gray-700 w-full text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500"
         >
           Create Course
         </button>
