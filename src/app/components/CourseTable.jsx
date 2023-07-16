@@ -1,6 +1,8 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Axios from "../Axios";
+import adminRestricted from "../utils/adminRestricted";
+import Link from "next/link";
 
 const CoursesTable = () => {
   const [courses, setCourses] = useState([]);
@@ -44,6 +46,9 @@ const CoursesTable = () => {
               <th className="px-6 py-4 text-left font-bold text-gray-800">
                 Creator
               </th>
+              <th className="px-6 py-4 text-left font-bold text-gray-800">
+                Edit
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -65,6 +70,11 @@ const CoursesTable = () => {
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     {course.creator.name}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                   <Link href={`/admin/edit-course/${course.slug}`}>
+                   Edit 
+                   </Link>
                   </td>
                 </tr>
                 {expandedRow === index && (
@@ -112,4 +122,4 @@ const CoursesTable = () => {
   );
 };
 
-export default CoursesTable;
+export default adminRestricted(CoursesTable);

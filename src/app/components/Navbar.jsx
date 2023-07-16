@@ -1,15 +1,35 @@
+"use client";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import Cookies from "js-cookie";
+import { useRouter } from "next/navigation";
 
 function Navbar() {
+  const router = useRouter();
+  const [token, setToken] = useState(null);
+
+  useEffect(() => {
+    const storedToken = Cookies.get("token"); // or localStorage.getItem('token');
+    setToken(storedToken);
+  }, []);
+  const handleLogout = () => {
+    // Perform logout logic, e.g., clearing cookies or localStorage
+    Cookies.remove("token"); // or localStorage.removeItem('token');
+    router.push("/login"); // Redirect the user to the login page
+  };
+
   return (
     <nav className="bg-gray-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-24">
           <div className="flex items-center">
-            <div className="flex-shrink-0">
-              <img className="h-8 w-8" src="/admin-logo.svg" alt="Admin Logo" />
-            </div>
+            <a href="/" className="flex-shrink-0">
+              <img
+                className="h-16 w-16 m-4"
+                src="/images/logo.png"
+                alt="Admin Logo"
+              />
+            </a>
             <div className="hidden md:block">
               <div className="ml-10 flex items-baseline space-x-4">
                 <Link
@@ -36,12 +56,24 @@ function Navbar() {
           </div>
           <div className="hidden md:block">
             <div className="ml-4 flex items-center md:ml-6">
-              <button
-                className="bg-red-800 px-3 py-1 rounded-xl text-white hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
-                aria-label="Notifications"
-              >
-               sign out
-              </button>
+              {token && <p className="text-white mr-2">{Cookies.get("username")}</p>}
+              {token ? (
+                <button
+                  onClick={handleLogout}
+                  className="bg-red-800 px-3 py-2 rounded-lg text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-gray-800"
+                  aria-label="Notifications"
+                >
+                  sign out
+                </button>
+              ) : (
+                <Link
+                  href={"/login"}
+                  className="bg-green-800 px-3 py-2 rounded-lg text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:ring-offset-gray-800"
+                  aria-label="Notifications"
+                >
+                  login
+                </Link>
+              )}
             </div>
           </div>
           <div className="-mr-2 flex md:hidden">

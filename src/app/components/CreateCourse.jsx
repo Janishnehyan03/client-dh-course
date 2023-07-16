@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Axios from "../Axios";
+import adminRestricted from "../utils/adminRestricted";
 
 const AddCourseForm = () => {
   const [formData, setFormData] = useState({
@@ -113,155 +114,168 @@ const AddCourseForm = () => {
     getCreators();
   }, []);
   return (
-    <div>
-      <h1 className="text-center font-bold my-4 text-4xl text-gray-800">
-        CREATE NEW COURSE
-      </h1>
-      <form
-        onSubmit={handleSubmit}
-        className="max-w-2xl bg-gray-100 p-9 rounded-lg mx-auto"
-      >
-        <label className="block mb-4 uppercase">
-          <span className="text-gray-700">Title:</span>
-          <input
-            type="text"
-            name="title"
-            value={formData.title}
-            onChange={handleInputChange}
-            required
-            className="border border-gray-600 rounded-lg mt-1 p-3 block w-full focus:outline-none focus:ring-2 focus:ring-gray-500"
-          />
-        </label>
+    <form
+      onSubmit={handleSubmit}
+      class="min-h-screen p-6 bg-gray-100 flex items-center justify-center"
+    >
+      <div class="container max-w-screen-lg mx-auto">
+        <div class="bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6">
+          <div class="grid gap-4 gap-y-6 text-sm grid-cols-1 md:grid-cols-3">
+            <div class="col-span-3">
+              <h2 class="font-semibold text-xl text-gray-600 mb-4">
+                Create New Course
+              </h2>
+            </div>
 
-        <label className="block mb-4 uppercase">
-          <span className="text-gray-700">Description:</span>
-          <textarea
-            name="description"
-            value={formData.description}
-            onChange={handleInputChange}
-            required
-            className="border border-gray-600 rounded-lg mt-1 p-3 block w-full focus:outline-none focus:ring-2 focus:ring-gray-500"
-          />
-        </label>
-
-        <label className="block mb-4 uppercase">
-          <span className="text-gray-700">Thumbnail:</span>
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handleFileChange}
-            required
-            className="border border-gray-600 bg-white rounded-lg mt-1 p-3 block w-full focus:outline-none focus:ring-2 focus:ring-gray-500"
-          />
-        </label>
-
-        <label className="block mb-4 uppercase">
-          <span className="text-gray-700">Preview Video URL:</span>
-          <input
-            type="text"
-            name="previewVideo"
-            value={formData.previewVideo}
-            onChange={handleInputChange}
-            required
-            className="border border-gray-600 rounded-lg mt-1 p-3 block w-full focus:outline-none focus:ring-2 focus:ring-gray-500"
-          />
-        </label>
-
-        <label className="block mb-4 uppercase">
-          <span className="text-gray-700">Price:</span>
-          <input
-            type="number"
-            name="price"
-            value={formData.price}
-            onChange={handleInputChange}
-            required
-            className="border border-gray-600 rounded-lg mt-1 p-3 block w-full focus:outline-none focus:ring-2 focus:ring-gray-500"
-          />
-        </label>
-
-        <label className="block mb-4 uppercase">
-          <span className="text-gray-700">Category:</span>
-          <select
-            name="category"
-            value={formData.category}
-            onChange={handleInputChange}
-            required
-            className="border border-gray-600 rounded-lg mt-1 p-3 block w-full focus:outline-none focus:ring-2 focus:ring-gray-500"
-          >
-            <option hidden>Select a category</option>
-            {categories.map((category, index) => (
-              <option key={index} value={category._id}>
-                {category?.name}
-              </option>
-            ))}
-            {/* Add more options as needed */}
-          </select>
-        </label>
-
-        <label className="block mb-4 uppercase">
-          <span className="text-gray-700">Creator:</span>
-          <select
-            name="creator"
-            value={formData.creator}
-            onChange={handleInputChange}
-            required
-            className="border border-gray-600 rounded-lg mt-1 p-3 block w-full focus:outline-none focus:ring-2 focus:ring-gray-500"
-          >
-            <option hidden>Select a creator</option>
-            {creators.map((creator, index) => (
-              <option value={creator._id} key={index}>
-                {creator?.name}
-              </option>
-            ))}{" "}
-            {/* Add more options as needed */}
-          </select>
-        </label>
-
-        <label className="block mb-4 uppercase">
-          <span className="text-gray-700">Videos:</span>
-          {formData.videos.map((video, index) => (
-            <div key={index} className="flex mb-2">
+            <div>
+              <label for="title">Title</label>
               <input
                 type="text"
-                name="videoTitle"
-                value={video.videoTitle}
-                onChange={(e) =>
-                  handleVideoChange(index, "videoTitle", e.target.value)
-                }
-                placeholder="Video Title"
-                className="border border-gray-600 rounded-lg mr-2 mt-1 p-3 block w-full focus:outline-none focus:ring-2 focus:ring-gray-500"
-              />
-              <input
-                type="text"
-                name="videoUrl"
-                value={video.videoUrl}
-                onChange={(e) =>
-                  handleVideoChange(index, "videoUrl", e.target.value)
-                }
-                placeholder="Video URL"
-                className="border border-gray-600 rounded-lg mt-1 p-3 block w-full focus:outline-none focus:ring-2 focus:ring-gray-500"
+                name="title"
+                id="title"
+                class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                value={formData.title}
+                onChange={handleInputChange}
+                required
               />
             </div>
-          ))}
-          <button
-            type="button"
-            onClick={handleAddVideo}
-            className="bg-gray-500 float-right mb-3 hover:bg-gray-700 text-white font-bold py-1 px-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500"
-          >
-            +
-          </button>
-        </label>
 
-        <button
-          type="submit"
-          disabled={loading}
-          className="bg-gray-700 hover:bg-gray-700 w-full text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500"
-        >
-          Create Course
-        </button>
-      </form>
-    </div>
+            <div>
+              <label for="thumbnail">Thumbnail</label>
+              <input
+                type="file"
+                accept="image/*"
+                id="thumbnail"
+                onChange={handleFileChange}
+                required
+                class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+              />
+            </div>
+
+            <div>
+              <label for="previewVideo">Preview Video URL</label>
+              <input
+                type="text"
+                name="previewVideo"
+                id="previewVideo"
+                class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                value={formData.previewVideo}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
+
+            <div>
+              <label for="price">Price</label>
+              <input
+                type="number"
+                name="price"
+                id="price"
+                class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                value={formData.price}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
+
+            <div>
+              <label for="category">Category</label>
+              <select
+                name="category"
+                id="category"
+                class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                value={formData.category}
+                onChange={handleInputChange}
+                required
+              >
+                <option hidden>Select a category</option>
+                {categories.map((category, index) => (
+                  <option key={index} value={category._id}>
+                    {category?.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div>
+              <label for="creator">Creator</label>
+              <select
+                name="creator"
+                id="creator"
+                class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                value={formData.creator}
+                onChange={handleInputChange}
+                required
+              >
+                <option hidden>Select a creator</option>
+                {creators.map((creator, index) => (
+                  <option value={creator._id} key={index}>
+                    {creator?.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div class="col-span-3">
+              <div className="w-full">
+                <label for="description">Description</label>
+                <textarea
+                  name="description"
+                  id="description"
+                  class="h-20 border mt-1 rounded px-4 w-full bg-gray-50"
+                  value={formData.description}
+                  onChange={handleInputChange}
+                  required
+                ></textarea>
+              </div>
+              <label for="videos">Videos</label>
+              {formData.videos.map((video, index) => (
+                <div key={index} class="flex space-x-4">
+                  <input
+                    type="text"
+                    name="videoTitle"
+                    value={video.videoTitle}
+                    onChange={(e) =>
+                      handleVideoChange(index, "videoTitle", e.target.value)
+                    }
+                    placeholder="Video Title"
+                    class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                  />
+                  <input
+                    type="text"
+                    name="videoUrl"
+                    value={video.videoUrl}
+                    onChange={(e) =>
+                      handleVideoChange(index, "videoUrl", e.target.value)
+                    }
+                    placeholder="Video URL"
+                    class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                  />
+                </div>
+              ))}
+              <button
+                type="button"
+                onClick={handleAddVideo}
+                class="bg-gray-500 hover:bg-gray-700 text-white py-1 px-2 mt-2 focus:outline-none focus:ring-2 focus:ring-gray-500"
+              >
+                add video
+              </button>
+            </div>
+
+            <div class="col-span-3">
+              <button
+                type="submit"
+                disabled={loading}
+                class="w-full bg-gray-700 hover:bg-gray-800 text-white font-bold py-2 px-6 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500"
+              >
+                Save Changes
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
   );
 };
 
-export default AddCourseForm;
+export default adminRestricted(AddCourseForm);
