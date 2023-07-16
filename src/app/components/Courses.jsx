@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import Axios from "../Axios";
 import Image from "next/image";
+import Link from "next/link";
 
 function Courses() {
   const [courses, setCourses] = useState([]);
@@ -43,9 +44,10 @@ function Courses() {
       ) : (
         <div className="lg:grid grid-cols-3">
           {courses.map((course, index) => (
-            <div
+            <Link
               key={index}
-              className="max-w-sm m-2 rounded overflow-hidden shadow-lg"
+              href={`/course/${course.slug}`}
+              className="max-w-sm m-2 rounded overflow-hidden group shadow-lg hover:bg-gray-300 transition"
             >
               <div className="relative w-full h-48">
                 <Image
@@ -57,7 +59,7 @@ function Courses() {
                 />
               </div>
               <div className="px-6 pt-4 pb-2 mt-16">
-                <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+                <span className="inline-block bg-gray-200 group-hover:bg-gray-200 transition rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
                   #{course.category.name}
                 </span>
               </div>
@@ -65,7 +67,7 @@ function Courses() {
                 <div className="font-bold text-xl mb-2">{course.title}</div>
                 <p className="text-gray-700 text-base">{course.description}</p>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       )}
