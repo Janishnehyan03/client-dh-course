@@ -1,9 +1,16 @@
-import Courses from "./components/Courses";
+import Features from "./components/Features";
+import HeroSection from "./components/HeroSection";
+import PopularCourse from "./components/PopularCourse";
 
 export default function Home() {
-  return (
-    <main className="flex lg:min-h-screen lg:flex-col items-center justify-between lg:p-24">
-      <Courses />
-    </main>
-  );
+  return (<>
+  
+<HeroSection/>
+
+<Features/>
+
+<PopularCourse />
+</>
+
+);
 }
