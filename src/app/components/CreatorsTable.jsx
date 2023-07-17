@@ -21,7 +21,12 @@ function CreatorsTable() {
 
   return (
     <div className="container mx-auto">
-      <h2 className="text-4xl text-violet-700 font-bold my-4 text-center uppercase">Our Instructors</h2>
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-4xl text-violet-700 font-bold uppercase">Our Instructors</h2>
+        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+          Create
+        </button>
+      </div>
       <table className="w-full border-collapse">
         <thead>
           <tr>
