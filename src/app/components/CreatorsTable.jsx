@@ -8,38 +8,40 @@ function CreatorsTable() {
   const getCreators = async () => {
     try {
       let { data } = await Axios.get("/creator");
-      setCreators(data)
+      console.log(data);
+      setCreators(data);
     } catch (error) {
       console.log(error.response);
     }
   };
+
   useEffect(() => {
     getCreators();
   }, []);
 
   return (
-    <div>
-      <h2>Creators Table</h2>
-      <table>
+    <div className="container mx-auto">
+      <h2 className="text-4xl text-violet-700 font-bold my-4 text-center uppercase">Our Instructors</h2>
+      <table className="w-full border-collapse">
         <thead>
           <tr>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Image</th>
-            <th>Phone</th>
-            <th>Email</th>
+            <th className="py-2 px-4 border">Name</th>
+            <th className="py-2 px-4 border">Description</th>
+            <th className="py-2 px-4 border">Image</th>
+            <th className="py-2 px-4 border">Phone</th>
+            <th className="py-2 px-4 border">Email</th>
           </tr>
         </thead>
         <tbody>
           {creators.map((creator) => (
-            <tr key={creator.id}>
-              <td>{creator.name}</td>
-              <td>{creator.description}</td>
-              <td>
-                <img src={creator.image} alt={creator.title} />
+            <tr key={creator._id}>
+              <td className="py-2 px-4 border">{creator.name}</td>
+              <td className="py-2 px-4 border">{creator.description}</td>
+              <td className="py-2 px-4 border">
+                <img src={creator.image} alt={creator.title} className="w-16 h-16" />
               </td>
-              <td>{creator.phone}</td>
-              <td>{creator.email}</td>
+              <td className="py-2 px-4 border">{creator.phone}</td>
+              <td className="py-2 px-4 border">{creator.email}</td>
             </tr>
           ))}
         </tbody>

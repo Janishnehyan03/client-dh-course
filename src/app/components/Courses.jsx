@@ -7,7 +7,15 @@ import Link from "next/link";
 function Courses() {
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(false);
-
+  const getUser = async () => {
+    try {
+      let { data } = await Axios.get("/auth/user");
+      console.log(data);
+      if (data.role === "admin") setIsAdmin(true);
+    } catch (error) {
+      console.log(error.response);
+    }
+  };
   const getCourses = async (e) => {
     setLoading(true);
     try {
@@ -21,12 +29,13 @@ function Courses() {
 
   useEffect(() => {
     getCourses();
+    getUser()
   }, []);
   return (
     <>
       {loading ? (
         <div className="lg:grid grid-cols-3 gap-3">
-          {[1, 1, 1, 1, 1, 1, 11, 1, 1, 1].map((item, index) => (
+          {[1, 1, 1, 1, 1, 1, 11, 1, 1, ].map((item, index) => (
             <div
               key={index}
               className="w-80 bg-white rounded-lg shadow-md p-4 animate-pulse"

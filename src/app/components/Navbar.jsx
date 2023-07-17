@@ -3,14 +3,28 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
+import Axios from "../Axios";
 
 function Navbar() {
   const router = useRouter();
   const [token, setToken] = useState(null);
+  const [user, setUser] = useState(null);
 
+  const getUser = async () => {
+    try {
+      let { data } = await Axios.get("/auth/user",);
+      console.log(data);
+      setUser(data);
+    } catch (error) {
+      console.log(error.response);
+    }
+  };
   useEffect(() => {
     const storedToken = Cookies.get("token"); // or localStorage.getItem('token');
     setToken(storedToken);
+    if (storedToken) {
+      getUser();
+    }
   }, []);
   const handleLogout = () => {
     // Perform logout logic, e.g., clearing cookies or localStorage
@@ -56,7 +70,9 @@ function Navbar() {
           </div>
           <div className="hidden md:block">
             <div className="ml-4 flex items-center md:ml-6">
-              {token && <p className="text-white mr-2">{Cookies.get("username")}</p>}
+              {token && (
+                <p className="text-white mr-2">{user?.name}</p>
+              )}
               {token ? (
                 <button
                   onClick={handleLogout}

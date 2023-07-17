@@ -33,11 +33,11 @@ function Dashboard() {
             <p>View and manage existing courses.</p>
           </Link>
 
-          <div className="p-6 bg-white rounded-lg shadow-md">
+          <Link href={'/admin/creators'} className="p-6 bg-white rounded-lg shadow-md">
             <UsersIcon className="h-20 w-20 text-purple-500 mx-auto mb-4" />
             <h2 className="text-2xl font-semibold mb-4">View Creators</h2>
             <p>Manage and collaborate with course creators.</p>
-          </div>
+          </Link >
 
           <div className="p-6 bg-white rounded-lg shadow-md">
             <CollectionIcon className="h-20 w-20 text-yellow-500 mx-auto mb-4" />

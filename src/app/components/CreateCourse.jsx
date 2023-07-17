@@ -116,24 +116,24 @@ const AddCourseForm = () => {
   return (
     <form
       onSubmit={handleSubmit}
-      class="min-h-screen p-6 bg-gray-100 flex items-center justify-center"
+      className="min-h-screen p-6 bg-gray-100 flex items-center justify-center"
     >
-      <div class="container max-w-screen-lg mx-auto">
-        <div class="bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6">
-          <div class="grid gap-4 gap-y-6 text-sm grid-cols-1 md:grid-cols-3">
-            <div class="col-span-3">
-              <h2 class="font-semibold text-xl text-gray-600 mb-4">
+      <div className="container max-w-screen-lg mx-auto">
+        <div className="bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6">
+          <div className="grid gap-4 gap-y-6 text-sm grid-cols-1 md:grid-cols-3">
+            <div className="col-span-3">
+              <h2 className="font-semibold text-xl text-gray-600 mb-4">
                 Create New Course
               </h2>
             </div>
 
             <div>
-              <label for="title">Title</label>
+              <label htmlFor="title">Title</label>
               <input
                 type="text"
                 name="title"
                 id="title"
-                class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
                 value={formData.title}
                 onChange={handleInputChange}
                 required
@@ -141,24 +141,24 @@ const AddCourseForm = () => {
             </div>
 
             <div>
-              <label for="thumbnail">Thumbnail</label>
+              <label htmlFor="thumbnail">Thumbnail</label>
               <input
                 type="file"
                 accept="image/*"
                 id="thumbnail"
                 onChange={handleFileChange}
                 required
-                class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
               />
             </div>
 
             <div>
-              <label for="previewVideo">Preview Video URL</label>
+              <label htmlFor="previewVideo">Preview Video URL</label>
               <input
                 type="text"
                 name="previewVideo"
                 id="previewVideo"
-                class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
                 value={formData.previewVideo}
                 onChange={handleInputChange}
                 required
@@ -166,12 +166,12 @@ const AddCourseForm = () => {
             </div>
 
             <div>
-              <label for="price">Price</label>
+              <label htmlFor="price">Price</label>
               <input
                 type="number"
                 name="price"
                 id="price"
-                class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
                 value={formData.price}
                 onChange={handleInputChange}
                 required
@@ -179,11 +179,11 @@ const AddCourseForm = () => {
             </div>
 
             <div>
-              <label for="category">Category</label>
+              <label htmlFor="category">Category</label>
               <select
                 name="category"
                 id="category"
-                class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
                 value={formData.category}
                 onChange={handleInputChange}
                 required
@@ -198,11 +198,11 @@ const AddCourseForm = () => {
             </div>
 
             <div>
-              <label for="creator">Creator</label>
+              <label htmlFor="creator">Creator</label>
               <select
                 name="creator"
                 id="creator"
-                class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
                 value={formData.creator}
                 onChange={handleInputChange}
                 required
@@ -216,21 +216,21 @@ const AddCourseForm = () => {
               </select>
             </div>
 
-            <div class="col-span-3">
+            <div className="col-span-3">
               <div className="w-full">
-                <label for="description">Description</label>
+                <label htmlFor="description">Description</label>
                 <textarea
                   name="description"
                   id="description"
-                  class="h-20 border mt-1 rounded px-4 w-full bg-gray-50"
+                  className="h-20 border mt-1 rounded px-4 w-full bg-gray-50"
                   value={formData.description}
                   onChange={handleInputChange}
                   required
                 ></textarea>
               </div>
-              <label for="videos">Videos</label>
+              <label htmlFor="videos">Videos</label>
               {formData.videos.map((video, index) => (
-                <div key={index} class="flex space-x-4">
+                <div key={index} className="flex space-x-4">
                   <input
                     type="text"
                     name="videoTitle"
@@ -239,7 +239,7 @@ const AddCourseForm = () => {
                       handleVideoChange(index, "videoTitle", e.target.value)
                     }
                     placeholder="Video Title"
-                    class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                    className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
                   />
                   <input
                     type="text"
@@ -249,28 +249,36 @@ const AddCourseForm = () => {
                       handleVideoChange(index, "videoUrl", e.target.value)
                     }
                     placeholder="Video URL"
-                    class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                    className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
                   />
                 </div>
               ))}
               <button
                 type="button"
                 onClick={handleAddVideo}
-                class="bg-gray-500 hover:bg-gray-700 text-white py-1 px-2 mt-2 focus:outline-none focus:ring-2 focus:ring-gray-500"
+                className="bg-gray-500 hover:bg-gray-700 text-white py-1 px-2 mt-2 focus:outline-none focus:ring-2 focus:ring-gray-500"
               >
                 add video
               </button>
             </div>
 
-            <div class="col-span-3">
-              <button
-                type="submit"
-                disabled={loading}
-                class="w-full bg-gray-700 hover:bg-gray-800 text-white font-bold py-2 px-6 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500"
-              >
-                Save Changes
-              </button>
-            </div>
+            {loading ? (
+              <div className="col-span-3">
+                <span className="w-full bg-gray-700 hover:bg-gray-800 text-white font-bold py-2 px-6 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500">
+                  Processing...
+                </span>
+              </div>
+            ) : (
+              <div className="col-span-3">
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="w-full bg-gray-700 hover:bg-gray-800 text-white font-bold py-2 px-6 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500"
+                >
+                  Save Changes
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>
