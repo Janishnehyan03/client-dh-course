@@ -34,11 +34,11 @@ function Header() {
   };
 
   return (
-    <header className="relative z-50 w-full h-24">
+    <header className="relative z-50 w-full h-24 overflow-visible">
       <div className="container flex items-center justify-center h-full max-w-6xl px-8 mx-auto sm:justify-between xl:px-0">
         <a
           href="#"
-          className="relative flex items-center inline-block h-5 h-full font-black leading-none"
+          className="relative flex items-center h-full font-black leading-none"
         >
           <Logo className="w-auto h-6 text-indigo-600 fill-current" />
           <span className="ml-3 text-xl text-gray-800">
@@ -74,7 +74,7 @@ function Header() {
             Contact
           </Link>
 
-          <div className="flex flex-col block w-full font-medium border-t border-gray-200 md:hidden">
+          <div className="flex flex-col w-full font-medium border-t border-gray-200 md:hidden">
             <Link
               href="#"
               className="w-full py-2 font-bold text-center text-pink-500"
