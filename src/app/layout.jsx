@@ -14,9 +14,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className + "overflow-x-hidden antialiased"}>
+      <body className={inter.className + "w-full overflow-x-hidden antialiased"}>
         <UserProvider>
-          <Header />
+          <Header/>
         </UserProvider>
         {children}
         <Footer/>

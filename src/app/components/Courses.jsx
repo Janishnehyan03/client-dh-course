@@ -56,7 +56,7 @@ function Courses() {
             <Link
               key={index}
               href={`/course/${course.slug}`}
-              className="max-w-sm m-2 rounded overflow-hidden group shadow-lg hover:bg-gray-300 transition"
+              className="max-w-sm m-2 rounded overflow-hidden group shadow-lg hover:bg-indigo-300 transition"
             >
               <div className="relative w-full h-48">
                 <Image
