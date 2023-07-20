@@ -5,7 +5,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 
-// ...
 function Courses() {
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -36,6 +35,7 @@ function Courses() {
   }, []);
   return (
     <>
+    <h1 className="relative text-3xl font-black leading-tight text-gray-900 lg:mb-5 lg:text-4xl">Courses</h1>
       {loading ? (
         <div className="lg:grid grid-cols-3 gap-3">
           {[1, 1, 1, 1, 1, 1, 11, 1, 1].map((item, index) => (
@@ -76,12 +76,12 @@ function Courses() {
                   className="rounded-t"
                 />
 
-                <div className="px-7 pt-4 pb-2 mt-2">
+                <div className="px-7 pt-4 pb-2 mt-3 mb-2">
                   <span className="inline-block bg-gray-200  group-hover:bg-indigo-700 group-hover:text-white transition rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
                     #{course.category.name}
                   </span>
                 </div>
-                <div className="px-7 py-4">
+                <div className="px-7">
                   <h2 className="font-bold text-xl mb-2">{course.title}</h2>
                   <div
                     className={`text-gray-700 text-base ${

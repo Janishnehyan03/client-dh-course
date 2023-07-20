@@ -3,7 +3,7 @@ import Courses from "../components/Courses";
 
 function page() {
   return (
-    <main className="flex lg:min-h-screen lg:flex-col items-center justify-between lg:p-24">
+    <main className="flex lg:min-h-screen flex-col items-center justify-between p-5 lg:p-24">
       <Courses />
     </main>
   );

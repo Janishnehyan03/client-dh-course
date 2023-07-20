@@ -11,6 +11,7 @@ function Header() {
   const pathName = usePathname();
   const [token, setToken] = useState(null);
   const [user, setUser] = useState(null);
+  const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
   const getUser = async () => {
     try {
       let { data } = await Axios.get("/auth/user");
@@ -27,15 +28,18 @@ function Header() {
       getUser();
     }
   }, []);
+
   const handleLogout = () => {
     // Perform logout logic, e.g., clearing cookies or localStorage
     Cookies.remove("token"); // or localStorage.removeItem('token');
     router.push("/login"); // Redirect the user to the login page
   };
-
+  const handleMobileNavToggle = () => {
+    setIsMobileNavOpen(!isMobileNavOpen);
+  };
   return (
     <header className="relative z-50 w-full h-24 overflow-visible">
-      <div className="container flex items-center justify-center h-full max-w-6xl px-8 mx-auto sm:justify-between xl:px-0">
+      <div className="container flex items-center justify-between h-full max-w-6xl px-8 mx-auto sm:justify-between xl:px-0">
         <a
           href="#"
           className="relative flex items-center h-full font-black leading-none"
@@ -47,7 +51,9 @@ function Header() {
         </a>
         <nav
           id="nav"
-          className="absolute top-0 left-0 z-50 flex flex-col items-center justify-between hidden w-full h-64 pt-5 mt-24 text-sm text-gray-800 bg-white border-t border-gray-200 md:w-auto md:flex-row md:h-24 lg:text-base md:bg-transparent md:mt-0 md:border-none md:py-0 md:flex md:relative"
+          className={`absolute top-0 left-0 z-50 flex flex-col items-center justify-between ${
+            isMobileNavOpen ? "hidden" : ""
+          } w-full h-64 pt-5 mt-24 text-sm text-gray-800 bg-white border-t border-gray-200 md:w-auto md:flex-row md:h-24 lg:text-base md:bg-transparent md:mt-0 md:border-none md:py-0 md:flex md:relative`}
         >
           <a
             href="/"
@@ -209,6 +215,7 @@ function Header() {
         </div>
         <div
           id="nav-mobile-btn"
+          onClick={handleMobileNavToggle}
           className="absolute top-0 right-0 z-50 block w-6 mt-8 mr-10 cursor-pointer select-none md:hidden sm:mt-10"
         >
           <span className="block w-full h-1 mt-2 duration-200 transform bg-gray-800 rounded-full sm:mt-1" />
