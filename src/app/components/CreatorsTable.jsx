@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Axios from "../Axios";
+import Link from "next/link";
 
 function CreatorsTable() {
   const [creators, setCreators] = useState([]);
@@ -23,9 +24,11 @@ function CreatorsTable() {
     <div className="container mx-auto">
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-4xl text-violet-700 font-bold uppercase">Our Instructors</h2>
-        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+        <Link
+        href={"/admin/creator/add"}
+        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
           Create
-        </button>
+        </Link>
       </div>
       <table className="w-full border-collapse">
         <thead>

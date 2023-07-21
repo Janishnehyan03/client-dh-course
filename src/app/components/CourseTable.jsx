@@ -7,7 +7,7 @@ import Link from "next/link";
 const CoursesTable = () => {
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [expandedRow, setExpandedRow] = useState(null);
+  const [expandedRow, setExpandedRow] = useState("null");
 
   useEffect(() => {
     fetchCourses();
