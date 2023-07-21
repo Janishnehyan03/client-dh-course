@@ -3,7 +3,7 @@ import Cookies from "js-cookie";
 
 const Axios = axios.create({
   // baseURL: "http://localhost:5000/api/v1",
-  baseURL: "https://dhcourse.vercel.app/api/v1",
+  baseURL: "https://course.cpetdhiu.in/api/v1",
   headers: {
     "Content-Type": "application/json",
     "Access-Control-Allow-Origin": "*",

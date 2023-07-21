@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import axios from "axios";
 import Axios from "../Axios";
 import adminRestricted from "../utils/adminRestricted";
 
@@ -20,6 +19,7 @@ const AddCourseForm = () => {
   const [categories, setCategories] = useState([]);
   const [creators, setCreators] = useState([]);
 
+  console.log(formData);
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevFormData) => ({
