@@ -10,7 +10,7 @@ const AddCourseForm = () => {
     description: "",
     thumbnail: null,
     previewVideo: "",
-    price: 0,
+    price: null,
     category: "",
     creator: "",
     videos: [{ videoTitle: "", videoUrl: "" }],
@@ -104,7 +104,7 @@ const AddCourseForm = () => {
         description: "",
         thumbnail: null,
         previewVideo: "",
-        price: 0,
+        price: null,
         category: "",
         creator: "",
         videos: [{ videoTitle: "", videoUrl: "" }],
@@ -138,18 +138,21 @@ const AddCourseForm = () => {
                 Create New Course
               </h2>
             </div>
-
             <div>
               <label htmlFor="title">Title</label>
               <input
                 type="text"
                 name="title"
                 id="title"
-                className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                className={`h-10 border mt-1 rounded px-4 w-full bg-gray-50 ${
+                  formErrors.title ? "border-red-500" : ""
+                }`}
                 value={formData.title}
                 onChange={handleInputChange}
-                // required
               />
+              {formErrors.title && (
+                <div className="text-red-600 mb-4">{formErrors.title}</div>
+              )}
             </div>
 
             <div>
@@ -160,8 +163,13 @@ const AddCourseForm = () => {
                 id="thumbnail"
                 onChange={handleFileChange}
                 // required
-                className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                className={`h-10 border mt-1 rounded px-4 w-full bg-gray-50 ${
+                  formErrors.thumbnail ? "border-red-500" : ""
+                }`}
               />
+              {formErrors.thumbnail && (
+                <div className="text-red-600 mb-4">{formErrors.thumbnail}</div>
+              )}
             </div>
 
             <div>
@@ -170,35 +178,48 @@ const AddCourseForm = () => {
                 type="text"
                 name="previewVideo"
                 id="previewVideo"
-                className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                // required
+                className={`h-10 border mt-1 rounded px-4 w-full bg-gray-50 ${
+                  formErrors.previewVideo ? "border-red-500" : ""
+                }`}
                 value={formData.previewVideo}
                 onChange={handleInputChange}
-                // required
               />
+              {formErrors.previewVideo && (
+                <div className="text-red-600 mb-4">
+                  {formErrors.previewVideo}
+                </div>
+              )}
             </div>
 
             <div>
               <label htmlFor="price">Price</label>
               <input
-                type="number"
+                type="text"
                 name="price"
                 id="price"
-                className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                // required
+                className={`h-10 border mt-1 rounded px-4 w-full bg-gray-50 ${
+                  formErrors.price ? "border-red-500" : ""
+                }`}
                 value={formData.price}
                 onChange={handleInputChange}
-                // required
               />
+              {formErrors.price && (
+                <div className="text-red-600 mb-4">{formErrors.price}</div>
+              )}
             </div>
-
             <div>
               <label htmlFor="category">Category</label>
               <select
                 name="category"
                 id="category"
-                className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                // required
+                className={`h-10 border mt-1 rounded px-4 w-full bg-gray-50 ${
+                  formErrors.category ? "border-red-500" : ""
+                }`}
                 value={formData.category}
                 onChange={handleInputChange}
-                // required
               >
                 <option hidden>Select a category</option>
                 {categories.map((category, index) => (
@@ -207,6 +228,9 @@ const AddCourseForm = () => {
                   </option>
                 ))}
               </select>
+              {formErrors.category && (
+                <div className="text-red-600 mb-4">{formErrors.category}</div>
+              )}
             </div>
 
             <div>
@@ -214,10 +238,12 @@ const AddCourseForm = () => {
               <select
                 name="creator"
                 id="creator"
-                className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                // required
+                className={`h-10 border mt-1 rounded px-4 w-full bg-gray-50 ${
+                  formErrors.creator ? "border-red-500" : ""
+                }`}
                 value={formData.creator}
                 onChange={handleInputChange}
-                // required
               >
                 <option hidden>Select a creator</option>
                 {creators.map((creator, index) => (
@@ -226,6 +252,9 @@ const AddCourseForm = () => {
                   </option>
                 ))}
               </select>
+              {formErrors.creator && (
+                <div className="text-red-600 mb-4">{formErrors.creator}</div>
+              )}
             </div>
 
             <div className="col-span-3">
@@ -234,68 +263,73 @@ const AddCourseForm = () => {
                 <textarea
                   name="description"
                   id="description"
-                  className="h-20 border mt-1 rounded px-4 w-full bg-gray-50"
+                  className={`h-20 border mt-1 rounded px-4 w-full bg-gray-50 ${formErrors.description ? 'border-red-500' : ''}`}
                   value={formData.description}
                   onChange={handleInputChange}
-                  // required
                 ></textarea>
                 {formErrors.description && (
                   <div className="text-red-600 mb-4">{formErrors.description}</div>
                 )}
               </div>
               <label htmlFor="videos">Videos</label>
-                {formData.videos.map((video, index) => (
-                  <div key={index} className="flex space-x-4">
-                    <input
-                      type="text"
-                      name="videoTitle"
-                      value={video.videoTitle}
-                      onChange={(e) =>
-                        handleVideoChange(index, "videoTitle", e.target.value)
-                      }
-                      placeholder="Video Title"
-                      className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                    />
-                    {formErrors[`videos.${index}.videoTitle`] && (
-                      <div className="text-red-600 mb-4">
-                        {formErrors[`videos.${index}.videoTitle`]}
-                      </div>
-                    )}
-                    <input
-                      type="text"
-                      name="videoUrl"
-                      value={video.videoUrl}
-                      onChange={(e) =>
-                        handleVideoChange(index, "videoUrl", e.target.value)
-                      }
-                      placeholder="Video URL"
-                      className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                    />
-                    {formErrors[`videos.${index}.videoUrl`] && (
-                      <div className="text-red-600 mb-4">
-                        {formErrors[`videos.${index}.videoUrl`]}
-                      </div>
-                    )}
-                    {formData.videos.length > 1 && (
-                      <button
-                        type="button"
-                        onClick={() => handleRemoveVideo(index)}
-                        className="bg-red-500 hover:bg-red-700 text-white py-1 px-2 mt-2 focus:outline-none focus:ring-2 focus:ring-red-500"
-                      >
-                        Remove
-                      </button>
-                    )}
-                  </div>
-                ))}
-                <button
-                  type="button"
-                  onClick={handleAddVideo}
-                  className="bg-gray-500 hover:bg-gray-700 text-white py-1 px-2 mt-2 focus:outline-none focus:ring-2 focus:ring-gray-500"
-                >
-                  Add Video
-                </button>
-           
-
+              {formData.videos.map((video, index) => (
+                <div key={index} className="flex space-x-4">
+                  <input
+                    type="text"
+                    name="videoTitle"
+                    value={video.videoTitle}
+                    onChange={(e) =>
+                      handleVideoChange(index, "videoTitle", e.target.value)
+                    }
+                    placeholder="Video Title"
+                    className={`h-10 border mt-1 rounded px-4 w-full bg-gray-50 ${
+                      formErrors[`videos.${index}.videoTitle`]
+                        ? "border-red-500"
+                        : ""
+                    }`}
+                  />
+                  {formErrors[`videos.${index}.videoTitle`] && (
+                    <div className="text-red-600 mb-4">
+                      {formErrors[`videos.${index}.videoTitle`]}
+                    </div>
+                  )}
+                  <input
+                    type="text"
+                    name="videoUrl"
+                    value={video.videoUrl}
+                    onChange={(e) =>
+                      handleVideoChange(index, "videoUrl", e.target.value)
+                    }
+                    placeholder="Video URL"
+                    className={`h-10 border mt-1 rounded px-4 w-full bg-gray-50 ${
+                      formErrors[`videos.${index}.videoUrl`]
+                        ? "border-red-500"
+                        : ""
+                    }`}
+                  />
+                  {formErrors[`videos.${index}.videoUrl`] && (
+                    <div className="text-red-600 mb-4">
+                      {formErrors[`videos.${index}.videoUrl`]}
+                    </div>
+                  )}
+                  {formData.videos.length > 1 && (
+                    <button
+                      type="button"
+                      onClick={() => handleRemoveVideo(index)}
+                      className="bg-red-500 hover:bg-red-700 text-white py-1 px-2 mt-2 focus:outline-none focus:ring-2 focus:ring-red-500"
+                    >
+                      Remove
+                    </button>
+                  )}
+                </div>
+              ))}
+              <button
+                type="button"
+                onClick={handleAddVideo}
+                className="bg-gray-500 hover:bg-gray-700 text-white py-1 px-2 mt-2 focus:outline-none focus:ring-2 focus:ring-gray-500"
+              >
+                Add Video
+              </button>
 
               {loading ? (
                 <div className="col-span-3">
