@@ -17,10 +17,9 @@ const AddCourseForm = () => {
   });
   const [loading, setLoading] = useState(false);
   const [categories, setCategories] = useState([]);
-  const [formErrors, setFormErrors] = useState({}); // Initialize formErrors as an empty object
-
   const [creators, setCreators] = useState([]);
   const [error, setError] = useState([]);
+  const [formErrors, setFormErrors] = useState({}); // Initialize formErrors as an empty object
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -54,6 +53,14 @@ const AddCourseForm = () => {
       ...prevFormData,
       thumbnail: file,
     }));
+
+    // Clear the thumbnail error when a valid file is selected
+    if (file) {
+      setFormErrors((prevErrors) => ({
+        ...prevErrors,
+        thumbnail: "",
+      }));
+    }
   };
 
   const handleVideoChange = (index, field, value) => {
@@ -79,6 +86,46 @@ const AddCourseForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Validate form fields for empty values
+    const errors = {};
+    if (!formData.title.trim()) {
+      errors.title = "Title is required";
+    }
+    if (!formData.description.trim()) {
+      errors.description = "Description is required";
+    }
+    if (!formData.previewVideo.trim()) {
+      errors.previewVideo = "Preview Video URL is required";
+    }
+    if (formData.price <= 0) {
+      errors.price = "Price must be greater than 0";
+    }
+    if (!formData.category) {
+      errors.category = "Category is required";
+    }
+    if (!formData.creator) {
+      errors.creator = "Creator is required";
+    }
+    if (!formData.thumbnail) {
+      errors.thumbnail = "Thumbnail is required";
+    }
+    // Validate video fields for empty values
+    formData.videos.forEach((video, index) => {
+      if (!video.videoTitle.trim()) {
+        errors[`videos.${index}.videoTitle`] = "Video Title is required";
+      }
+      if (!video.videoUrl.trim()) {
+        errors[`videos.${index}.videoUrl`] = "Video URL is required";
+      }
+    });
+
+    // If there are validation errors, set them in the state and return
+    if (Object.keys(errors).length > 0) {
+      setFormErrors(errors);
+      return;
+    }
+
     setLoading(true);
     try {
       const formDataToSend = new FormData();
@@ -138,6 +185,7 @@ const AddCourseForm = () => {
                 Create New Course
               </h2>
             </div>
+
             <div>
               <label htmlFor="title">Title</label>
               <input
@@ -193,9 +241,9 @@ const AddCourseForm = () => {
             </div>
 
             <div>
-              <label htmlFor="price">Price</label>
+              <label htmlFor="price">Price (₹)</label>
               <input
-                type="text"
+                type="number"
                 name="price"
                 id="price"
                 // required
@@ -258,17 +306,21 @@ const AddCourseForm = () => {
             </div>
 
             <div className="col-span-3">
-            <div className="w-full">
+              <div className="w-full">
                 <label htmlFor="description">Description</label>
                 <textarea
                   name="description"
                   id="description"
-                  className={`h-20 border mt-1 rounded px-4 w-full bg-gray-50 ${formErrors.description ? 'border-red-500' : ''}`}
+                  className={`h-20 border mt-1 rounded px-4 w-full bg-gray-50 ${
+                    formErrors.description ? "border-red-500" : ""
+                  }`}
                   value={formData.description}
                   onChange={handleInputChange}
                 ></textarea>
                 {formErrors.description && (
-                  <div className="text-red-600 mb-4">{formErrors.description}</div>
+                  <div className="text-red-600 mb-4">
+                    {formErrors.description}
+                  </div>
                 )}
               </div>
               <label htmlFor="videos">Videos</label>

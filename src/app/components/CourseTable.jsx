@@ -72,7 +72,7 @@ const CoursesTable = () => {
                     {course.creator.name}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                   <Link href={`/admin/edit-course/${course.slug}`}>
+                   <Link href={`/admin/course/edit/${course.slug}`}>
                    Edit 
                    </Link>
                   </td>
