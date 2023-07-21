@@ -17,9 +17,11 @@ const AddCourseForm = () => {
   });
   const [loading, setLoading] = useState(false);
   const [categories, setCategories] = useState([]);
-  const [creators, setCreators] = useState([]);
+  const [formErrors, setFormErrors] = useState({}); // Initialize formErrors as an empty object
 
-  console.log(formData);
+  const [creators, setCreators] = useState([]);
+  const [error, setError] = useState([]);
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevFormData) => ({
@@ -68,11 +70,16 @@ const AddCourseForm = () => {
       videos: [...prevFormData.videos, { videoTitle: "", videoUrl: "" }],
     }));
   };
+  const handleRemoveVideo = (index) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      videos: prevFormData.videos.filter((_, i) => i !== index),
+    }));
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-
     try {
       const formDataToSend = new FormData();
       formDataToSend.append("title", formData.title);
@@ -106,7 +113,12 @@ const AddCourseForm = () => {
       window.location.href = "/";
     } catch (error) {
       setLoading(false);
-      console.error(error.response);
+      if (error.response && error.response.data && error.response.data.errors) {
+        setError(error.response.data.message); // Update the error state with the error message
+        setFormErrors(error.response.data.errors);
+      } else {
+        setError("An error occurred. Please try again later."); // Generic error message if no specific message from server
+      }
     }
   };
   useEffect(() => {
@@ -136,7 +148,7 @@ const AddCourseForm = () => {
                 className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
                 value={formData.title}
                 onChange={handleInputChange}
-                required
+                // required
               />
             </div>
 
@@ -147,7 +159,7 @@ const AddCourseForm = () => {
                 accept="image/*"
                 id="thumbnail"
                 onChange={handleFileChange}
-                required
+                // required
                 className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
               />
             </div>
@@ -161,7 +173,7 @@ const AddCourseForm = () => {
                 className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
                 value={formData.previewVideo}
                 onChange={handleInputChange}
-                required
+                // required
               />
             </div>
 
@@ -174,7 +186,7 @@ const AddCourseForm = () => {
                 className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
                 value={formData.price}
                 onChange={handleInputChange}
-                required
+                // required
               />
             </div>
 
@@ -186,7 +198,7 @@ const AddCourseForm = () => {
                 className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
                 value={formData.category}
                 onChange={handleInputChange}
-                required
+                // required
               >
                 <option hidden>Select a category</option>
                 {categories.map((category, index) => (
@@ -205,7 +217,7 @@ const AddCourseForm = () => {
                 className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
                 value={formData.creator}
                 onChange={handleInputChange}
-                required
+                // required
               >
                 <option hidden>Select a creator</option>
                 {creators.map((creator, index) => (
@@ -217,7 +229,7 @@ const AddCourseForm = () => {
             </div>
 
             <div className="col-span-3">
-              <div className="w-full">
+            <div className="w-full">
                 <label htmlFor="description">Description</label>
                 <textarea
                   name="description"
@@ -225,60 +237,85 @@ const AddCourseForm = () => {
                   className="h-20 border mt-1 rounded px-4 w-full bg-gray-50"
                   value={formData.description}
                   onChange={handleInputChange}
-                  required
+                  // required
                 ></textarea>
+                {formErrors.description && (
+                  <div className="text-red-600 mb-4">{formErrors.description}</div>
+                )}
               </div>
               <label htmlFor="videos">Videos</label>
-              {formData.videos.map((video, index) => (
-                <div key={index} className="flex space-x-4">
-                  <input
-                    type="text"
-                    name="videoTitle"
-                    value={video.videoTitle}
-                    onChange={(e) =>
-                      handleVideoChange(index, "videoTitle", e.target.value)
-                    }
-                    placeholder="Video Title"
-                    className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                  />
-                  <input
-                    type="text"
-                    name="videoUrl"
-                    value={video.videoUrl}
-                    onChange={(e) =>
-                      handleVideoChange(index, "videoUrl", e.target.value)
-                    }
-                    placeholder="Video URL"
-                    className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                  />
-                </div>
-              ))}
-              <button
-                type="button"
-                onClick={handleAddVideo}
-                className="bg-gray-500 hover:bg-gray-700 text-white py-1 px-2 mt-2 focus:outline-none focus:ring-2 focus:ring-gray-500"
-              >
-                add video
-              </button>
-            </div>
-
-            {loading ? (
-              <div className="col-span-3">
-                <span className="w-full bg-gray-700 hover:bg-gray-800 text-white font-bold py-2 px-6 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500">
-                  Processing...
-                </span>
-              </div>
-            ) : (
-              <div className="col-span-3">
+                {formData.videos.map((video, index) => (
+                  <div key={index} className="flex space-x-4">
+                    <input
+                      type="text"
+                      name="videoTitle"
+                      value={video.videoTitle}
+                      onChange={(e) =>
+                        handleVideoChange(index, "videoTitle", e.target.value)
+                      }
+                      placeholder="Video Title"
+                      className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                    />
+                    {formErrors[`videos.${index}.videoTitle`] && (
+                      <div className="text-red-600 mb-4">
+                        {formErrors[`videos.${index}.videoTitle`]}
+                      </div>
+                    )}
+                    <input
+                      type="text"
+                      name="videoUrl"
+                      value={video.videoUrl}
+                      onChange={(e) =>
+                        handleVideoChange(index, "videoUrl", e.target.value)
+                      }
+                      placeholder="Video URL"
+                      className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                    />
+                    {formErrors[`videos.${index}.videoUrl`] && (
+                      <div className="text-red-600 mb-4">
+                        {formErrors[`videos.${index}.videoUrl`]}
+                      </div>
+                    )}
+                    {formData.videos.length > 1 && (
+                      <button
+                        type="button"
+                        onClick={() => handleRemoveVideo(index)}
+                        className="bg-red-500 hover:bg-red-700 text-white py-1 px-2 mt-2 focus:outline-none focus:ring-2 focus:ring-red-500"
+                      >
+                        Remove
+                      </button>
+                    )}
+                  </div>
+                ))}
                 <button
-                  type="submit"
-                  disabled={loading}
-                  className="w-full bg-gray-700 hover:bg-gray-800 text-white font-bold py-2 px-6 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500"
+                  type="button"
+                  onClick={handleAddVideo}
+                  className="bg-gray-500 hover:bg-gray-700 text-white py-1 px-2 mt-2 focus:outline-none focus:ring-2 focus:ring-gray-500"
                 >
-                  Save Changes
+                  Add Video
                 </button>
-              </div>
-            )}
+           
+
+
+              {loading ? (
+                <div className="col-span-3">
+                  <span className="w-full bg-gray-700 hover:bg-gray-800 text-white font-bold py-2 px-6 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500">
+                    Processing...
+                  </span>
+                </div>
+              ) : (
+                <div className="col-span-3">
+                  <button
+                    type="submit"
+                    disabled={loading}
+                    className="w-full bg-gray-700 hover:bg-gray-800 text-white font-bold py-2 px-6 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500"
+                  >
+                    Save Changes
+                  </button>
+                </div>
+              )}
+              <p>{error}</p>
+            </div>
           </div>
         </div>
       </div>

@@ -11,7 +11,7 @@ function Header() {
   const pathName = usePathname();
   const [token, setToken] = useState(null);
   const [user, setUser] = useState(null);
-  const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
+  const [isMobileNavClosed, setIsMobileNavClosed] = useState(true);
   const getUser = async () => {
     try {
       let { data } = await Axios.get("/auth/user");
@@ -35,7 +35,7 @@ function Header() {
     router.push("/login"); // Redirect the user to the login page
   };
   const handleMobileNavToggle = () => {
-    setIsMobileNavOpen(!isMobileNavOpen);
+    setIsMobileNavClosed(!isMobileNavClosed);
   };
   return (
     <header className="relative z-50 w-full h-24 overflow-visible">
@@ -51,8 +51,9 @@ function Header() {
         </a>
         <nav
           id="nav"
+          onClick={handleMobileNavToggle}
           className={`absolute top-0 left-0 z-50 flex flex-col items-center justify-between ${
-            isMobileNavOpen ? "hidden" : ""
+            isMobileNavClosed ? "hidden" : ""
           } w-full h-64 pt-5 mt-24 text-sm text-gray-800 bg-white border-t border-gray-200 md:w-auto md:flex-row md:h-24 lg:text-base md:bg-transparent md:mt-0 md:border-none md:py-0 md:flex md:relative`}
         >
           <a
