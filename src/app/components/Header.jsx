@@ -41,7 +41,7 @@ function Header() {
     <header className="relative z-50 w-full h-24 overflow-visible">
       <div className="container flex items-center justify-between h-full max-w-6xl px-8 mx-auto sm:justify-between xl:px-0">
         <a
-          href="#"
+          href={"/"}
           className="relative flex items-center h-full font-black leading-none"
         >
           <Logo className="w-auto h-6 text-indigo-600 fill-current" />
@@ -100,14 +100,14 @@ function Header() {
           {token ? (
             <Link
               href="#_"
-              className="relative z-40 px-3 py-2 mr-0 text-sm font-bold text-pink-500 md:px-5 lg:text-white sm:mr-3 md:mt-0"
+              className={`relative z-40 px-3 py-2 mr-0 text-sm font-bold text-pink-500 md:px-5 ${pathName === "/" ? 'lg:text-white ' : ""}sm:mr-3 md:mt-0`}
             >
               {user?.name}
             </Link>
           ) : (
             <Link
               href={"/login"}
-              className="relative z-40 px-3 py-2 mr-0 text-sm font-bold text-pink-500 md:px-5 lg:text-white sm:mr-3 md:mt-0"
+              className={`relative z-40 px-3 py-2 mr-0 text-sm font-bold text-pink-500 md:px-5 ${pathName === "/" ? 'lg:text-white ' : ""}sm:mr-3 md:mt-0`}
             >
               Login
             </Link>
@@ -117,14 +117,14 @@ function Header() {
             <Link
               href={"/my-courses"}
               onClick={handleLogout}
-              className="relative z-40 inline-block w-auto h-full px-5 py-3 text-sm font-bold leading-none text-white transition-all transition duration-100 duration-300 bg-indigo-700 rounded shadow-md fold-bold lg:bg-white lg:text-indigo-700 sm:w-full lg:shadow-none hover:shadow-xl"
+              className={`relative z-40 inline-block w-auto h-full px-5 py-3 text-sm font-bold leading-none text-white transition-all transition duration-100 duration-300 bg-indigo-700 rounded shadow-md fold-bold ${pathName === "/" ? 'lg:bg-white lg:text-indigo-700 ' : ""} sm:w-full lg:shadow-none hover:shadow-xl`}
             >
               My Courses
             </Link>
           ) : (
             <Link
               href={"/register"}
-              className="relative z-40 inline-block w-auto h-full px-5 py-3 text-sm font-bold leading-none text-white transition-all transition duration-100 duration-300 bg-indigo-700 rounded shadow-md fold-bold lg:bg-white lg:text-indigo-700 sm:w-full lg:shadow-none hover:shadow-xl"
+              className={`relative z-40 inline-block w-auto h-full px-5 py-3 text-sm font-bold leading-none text-white transition-all transition duration-100 duration-300 bg-indigo-700 rounded shadow-md fold-bold ${pathName === "/" ? 'lg:bg-white lg:text-indigo-700 ' : ""} sm:w-full lg:shadow-none hover:shadow-xl`}
             >
               Register
             </Link>

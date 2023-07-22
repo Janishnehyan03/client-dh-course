@@ -8,7 +8,6 @@ const CoursesTable = () => {
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(false);
   const [expandedRow, setExpandedRow] = useState("null");
-
   useEffect(() => {
     fetchCourses();
   }, []);
@@ -23,6 +22,7 @@ const CoursesTable = () => {
       console.error("Error:", error);
     }
   };
+  console.log(courses);
 
   const handleRowClick = (courseId) => {
     setExpandedRow((prevRow) => (prevRow === courseId ? null : courseId));
