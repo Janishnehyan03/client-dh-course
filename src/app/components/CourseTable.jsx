@@ -16,7 +16,7 @@ const CoursesTable = () => {
     try {
       setLoading(true);
       const { data } = await Axios.get("/course");
-        setLoading(false);
+      setLoading(false);
       setCourses(data.courses);
     } catch (error) {
       console.error("Error:", error);
@@ -47,34 +47,43 @@ const CoursesTable = () => {
                 Creator
               </th>
               <th className="px-6 py-4 text-left font-bold text-gray-800">
-                Edit
+                Options
               </th>
             </tr>
           </thead>
           <tbody>
             {courses.map((course, index) => (
-              <React.Fragment key={course.id}>
+              <React.Fragment key={index}>
                 <tr
                   className="cursor-pointer"
                   onClick={() => handleRowClick(index)}
                 >
                   <td className="px-6 py-4 whitespace-nowrap">{index + 1}</td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    {course.title}
+                    {course?.title}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    {course.category.name}
+                    {course?.category?.name}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    ₹{course.price}
+                    ₹{course?.price}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    {course.creator.name}
+                    {course?.creator?.name}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                   <Link href={`/admin/course/edit/${course.slug}`}>
-                   Edit 
-                   </Link>
+                    <Link
+                      className="px-4 py-2 mr-2 text-white bg-blue-500 rounded-md hover:bg-blue-600"
+                      href={`/admin/course/edit/${course?.slug}`}
+                    >
+                      Edit
+                    </Link>
+                    <Link
+                      className="px-4 py-2 text-white bg-red-500 rounded-md hover:bg-red-600"
+                      href={`/admin/course/delete/${course?.slug}`}
+                    >
+                      Delete
+                    </Link>
                   </td>
                 </tr>
                 {expandedRow === index && (
@@ -101,22 +110,7 @@ const CoursesTable = () => {
           </tbody>
         </table>
       ) : (
-        <div className="grid grid-cols-5 gap-3">
-          {[1, 1, 1, 1, 1, 1, 11, 1, 1, 1].map((item, index) => (
-            <div
-              key={index}
-              className="w-64 bg-white rounded-lg shadow-md p-4 animate-pulse"
-            >
-              <div className="h-4 w-24 bg-gray-300 mb-4"></div>{" "}
-              {/* Title Skeleton */}
-              <div className="h-40 bg-gray-300 mb-4"></div>{" "}
-              {/* Card Image Skeleton */}
-              <div className="h-4 w-16 bg-gray-300 mb-2"></div>{" "}
-              {/* Text Skeleton */}
-              <div className="h-4 w-32 bg-gray-300"></div> {/* Text Skeleton */}
-            </div>
-          ))}
-        </div>
+<div>loading</div>
       )}
     </>
   );

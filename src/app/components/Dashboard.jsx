@@ -39,11 +39,11 @@ function Dashboard() {
             <p>Manage and collaborate with course creators.</p>
           </Link >
 
-          <div className="p-6 bg-white rounded-lg shadow-md">
+          <Link href={"/admin/category"} className="p-6 bg-white rounded-lg shadow-md">
             <CollectionIcon className="h-20 w-20 text-yellow-500 mx-auto mb-4" />
             <h2 className="text-2xl font-semibold mb-4">Categories</h2>
             <p>Manage and categorize your course content.</p>
-          </div>
+          </Link>
         </div>
       </main>
     </div>

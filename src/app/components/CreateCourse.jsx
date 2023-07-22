@@ -8,9 +8,9 @@ const AddCourseForm = () => {
   const [formData, setFormData] = useState({
     title: "",
     description: "",
-    thumbnail: null,
+    thumbnail: "", // Initialize with an empty string
     previewVideo: "",
-    price: null,
+    price: "", // Initialize with an empty string
     category: "",
     creator: "",
     videos: [{ videoTitle: "", videoUrl: "" }],
@@ -110,6 +110,9 @@ const AddCourseForm = () => {
     if (!formData.thumbnail) {
       errors.thumbnail = "Thumbnail is required";
     }
+    if (isNaN(formData.price) || Number(formData.price) <= 0) {
+      errors.price = "Price must be a positive number";
+    }
     // Validate video fields for empty values
     formData.videos.forEach((video, index) => {
       if (!video.videoTitle.trim()) {
@@ -149,9 +152,9 @@ const AddCourseForm = () => {
       setFormData({
         title: "",
         description: "",
-        thumbnail: null,
+        thumbnail: "",
         previewVideo: "",
-        price: null,
+        price: "",
         category: "",
         creator: "",
         videos: [{ videoTitle: "", videoUrl: "" }],
