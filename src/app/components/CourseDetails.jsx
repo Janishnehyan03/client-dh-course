@@ -80,14 +80,13 @@ function CourseDetails() {
             <h1 className="text-4xl font-bold mb-4 text-violet-900">{course?.title}</h1>
             <p className="text-gray-700 mb-4">{course?.description}</p>
             <div className="flex items-center mb-4">
-              <span className="text-gray-700 flex">
-                Created by
-                <span className="uppercase ml-2 font-bold">
-
+              <div className="text-gray-700 flex items-center">
+                <span>Created by: </span>
+                <img src={course?.creator?.image} alt={course?.creator?.name} className="ml-2 mr-1 rounded-full h-9"/> 
+                <span className="font-bold">
                  {course?.creator?.name}
                 </span>
-                <img src={course?.creator?.image} style={{width:"10px"}} alt="" />
-              </span>
+              </div>
             </div>
             <div className="flex items-center mb-4">
               <span className="text-gray-700 mr-2">Price:</span>
