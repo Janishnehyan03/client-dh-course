@@ -24,8 +24,9 @@ const EditCreatorForm = () => {
     setShowModal(true);
   };
   const uploadThumbnail = async (e) => {
+    e.preventDefault();
     const thumbnailData = new FormData();
-    thumbnailData.append("thumbnail", thumbnail);
+    thumbnailData.append("image", thumbnail);
     try {
       let response = await Axios.patch(
         `/creator/thumbnail/${slug}`,
@@ -36,7 +37,15 @@ const EditCreatorForm = () => {
           },
         }
       );
-    } catch (error) {}
+      setShowModal(false);
+      // Optionally, you can also update the thumbnail in the form state:
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        image: response.data.thumbnailUrl, // Set the image URL returned from the server
+      }));
+    } catch (error) {
+      console.error(error.response);
+    }
   };
   const handleCloseModal = () => {
     setShowModal(false);
