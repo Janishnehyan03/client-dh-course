@@ -110,7 +110,7 @@ const CoursesTable = () => {
           </tbody>
         </table>
       ) : (
-<div>loading</div>
+        <div>loading</div>
       )}
     </>
   );

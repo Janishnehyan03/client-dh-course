@@ -160,7 +160,7 @@ const AddCourseForm = () => {
         videos: [{ videoTitle: "", videoUrl: "" }],
       });
       setLoading(false);
-      window.location.href = "/";
+      window.location.href = "/admin/course";
     } catch (error) {
       setLoading(false);
       if (error.response && error.response.data && error.response.data.errors) {

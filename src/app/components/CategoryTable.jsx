@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import React, { useState, useEffect } from "react";
 import Axios from "../Axios";
 import Link from "next/link";
@@ -31,7 +31,9 @@ function CategoryTable() {
     setSelectedCategoryId(categoryId);
     setShowEditPopup(true);
     // Fetch the current data for the selected category and populate the input fields
-    const selectedCategory = categories.find((category) => category._id === categoryId);
+    const selectedCategory = categories.find(
+      (category) => category._id === categoryId
+    );
     if (selectedCategory) {
       setEditedCategoryName(selectedCategory.name);
       // Set other state variables for other fields you want to edit
@@ -94,7 +96,9 @@ function CategoryTable() {
   return (
     <div className="container mx-auto">
       <div className="flex justify-between items-center mb-4">
-        <h2 className="text-4xl text-violet-700 font-bold uppercase">Categories</h2>
+        <h2 className="text-4xl text-violet-700 font-bold uppercase">
+          Categories
+        </h2>
         <button
           onClick={handleNewCategoryClick}
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
@@ -131,7 +135,6 @@ function CategoryTable() {
           ))}
         </tbody>
       </table>
-
       {/* Edit Category Popup */}
       {showEditPopup && (
         <div className="fixed inset-0 flex items-center justify-center z-10 bg-gray-500 bg-opacity-50">
@@ -168,12 +171,16 @@ function CategoryTable() {
             </form>
           </div>
         </div>
-      )} {/* Delete Category Popup */}
+      )}{" "}
+      {/* Delete Category Popup */}
       {showDeletePopup && (
         <div className="fixed inset-0 flex items-center justify-center z-10 bg-gray-500 bg-opacity-50">
           <div className="bg-white rounded shadow-lg p-4">
             <h2 className="text-lg font-semibold mb-4">Delete Category</h2>
-            <p>Are you sure you want to delete the category "{categoryToDelete.name}"?</p>
+            <p>
+              Are you sure you want to delete the category "
+              {categoryToDelete.name}"?
+            </p>
             <div className="flex justify-end">
               <button
                 className="bg-red-500 hover:bg-red-700 text-white px-4 py-2 ml-2"
@@ -190,7 +197,8 @@ function CategoryTable() {
             </div>
           </div>
         </div>
-      )}     {/* New Category Popup */}
+      )}{" "}
+      {/* New Category Popup */}
       {showNewCategoryPopup && (
         <div className="fixed inset-0 flex items-center justify-center z-10 bg-gray-500 bg-opacity-50">
           <div className="bg-white rounded shadow-lg p-4">

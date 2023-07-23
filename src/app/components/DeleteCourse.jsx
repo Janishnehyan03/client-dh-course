@@ -16,7 +16,7 @@ console.log(courseData._id);
     try {
       await Axios.delete(`/course/${courseData._id}`);
       setLoading(false);
-      router.push("/admin/dashboard"); // Replace '/admin/dashboard' with the desired page after successful deletion
+      router.push("/admin/course"); // Replace '/admin/dashboard' with the desired page after successful deletion
     } catch (error) {
       setLoading(false);
       console.error(error.response);

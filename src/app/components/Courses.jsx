@@ -35,7 +35,9 @@ function Courses() {
   }, []);
   return (
     <>
-    <h1 className="relative text-3xl font-black leading-tight text-gray-900 lg:mb-5 lg:text-4xl">Courses</h1>
+      <h1 className="relative text-3xl font-black leading-tight text-gray-900 lg:mb-5 lg:text-4xl">
+        Courses
+      </h1>
       {loading ? (
         <div className="lg:grid grid-cols-3 gap-3">
           {[1, 1, 1, 1, 1, 1, 11, 1, 1].map((item, index) => (

@@ -14,6 +14,7 @@ const EditCourseForm = () => {
     setShowModal(true);
   };
   const uploadThumbnail = async (e) => {
+    e.preventDefault();
     const thumbnailData =  new FormData();
     thumbnailData.append("thumbnail", thumbnail);
     try {
@@ -21,8 +22,12 @@ const EditCourseForm = () => {
         headers: {
           "Content-Type": "multipart/form-data",
         },
-      }); 
-    } catch (error) {}
+      });
+      setShowModal(false);
+ 
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleCloseModal = () => {
@@ -37,7 +42,7 @@ const EditCourseForm = () => {
     creator: "",
     videos: [{ videoTitle: "", videoUrl: "" }],
   });
-
+  
   const [loading, setLoading] = useState(false);
   const [categories, setCategories] = useState([]);
   const [creators, setCreators] = useState([]);
@@ -47,9 +52,9 @@ const EditCourseForm = () => {
     setFormData((prevFormData) => ({
       ...prevFormData,
       [name]: value,
-    }));
+    }
+    ));
   };
-
   const handleVideoChange = (index, field, value) => {
     setFormData((prevFormData) => {
       const videos = [...prevFormData.videos];
@@ -83,7 +88,7 @@ const EditCourseForm = () => {
       await Axios.patch(`/course/${slug}`, formDataToSend);
 
       setLoading(false);
-      window.location.href = "/admin/dashboard"; // Use window.location.href to navigate to the desired page
+      window.location.href = "/admin/course"; // Use window.location.href to navigate to the desired page
     } catch (error) {
       setLoading(false);
       console.error(error);
@@ -100,12 +105,14 @@ const EditCourseForm = () => {
         description: data.description,
         previewVideo: data.previewVideo,
         price: data.price,
-        category: data.category._id,
-        creator: data.creator._id,
+        category: data.category?._id,
+        creator: data.creator?._id,
         videos: data.videos,
       });
+
+      console.log(formData);
     } catch (error) {
-      console.log(error.response);
+      console.log(error);
     }
   };
 

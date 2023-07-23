@@ -77,15 +77,19 @@ function CourseDetails() {
       <div className="container mx-auto py-8">
         <div className="flex flex-col md:flex-row items-center">
           <div className="md:w-2/3 md:pl-8">
-            <h1 className="text-4xl font-bold mb-4 text-violet-900">{course?.title}</h1>
+            <h1 className="text-4xl font-bold mb-4 text-violet-900">
+              {course?.title}
+            </h1>
             <p className="text-gray-700 mb-4">{course?.description}</p>
             <div className="flex items-center mb-4">
               <div className="text-gray-700 flex items-center">
                 <span>Created by: </span>
-                <img src={course?.creator?.image} alt={course?.creator?.name} className="ml-2 mr-1 rounded-full h-9"/> 
-                <span className="font-bold">
-                 {course?.creator?.name}
-                </span>
+                <img
+                  src={course?.creator?.image}
+                  alt={course?.creator?.name}
+                  className="ml-2 mr-1 rounded-full h-9"
+                />
+                <span className="font-bold">{course?.creator?.name}</span>
               </div>
             </div>
             <div className="flex items-center mb-4">
@@ -119,7 +123,7 @@ function CourseDetails() {
               Join this course now!
             </h2>
             <p className="text-gray-700 mb-4">
-              Get started  with this comprehensive course.
+              Get started with this comprehensive course.
             </p>
             <div className="flex justify-end">
               <button className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-full">

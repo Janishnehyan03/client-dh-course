@@ -1,6 +1,6 @@
-'use client'
+"use client";
 import { useEffect, useState } from "react";
-import { useParams } from "next/navigation"; // Change next/navigation to next/router
+import { useParams } from "next/navigation";
 import Axios from "../Axios";
 import adminRestricted from "../utils/adminRestricted";
 
@@ -10,13 +10,37 @@ const EditCreatorForm = () => {
   const [formData, setFormData] = useState({
     name: "",
     description: "",
-    image: null, // Add an image field to handle the image upload
-    phone: "",
-    email: "",
   });
+  const [showModal, setShowModal] = useState(false);
+  const [thumbnail, setThumbnail] = useState(null);
 
   const [loading, setLoading] = useState(false);
-
+  const [oldData, setOldData] = useState({
+    name: "", // Initialize with empty values
+    description: "",
+    image: null,
+  });
+  const handleUpdateThumbnail = () => {
+    setShowModal(true);
+  };
+  const uploadThumbnail = async (e) => {
+    const thumbnailData = new FormData();
+    thumbnailData.append("thumbnail", thumbnail);
+    try {
+      let response = await Axios.patch(
+        `/creator/thumbnail/${slug}`,
+        thumbnailData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+    } catch (error) {}
+  };
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevFormData) => ({
@@ -25,36 +49,20 @@ const EditCreatorForm = () => {
     }));
   };
 
-  const handleImageChange = (e) => {
-    const imageFile = e.target.files[0];
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      image: imageFile,
-    }));
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
 
     try {
-      const formDataToSend = new FormData();
-      formDataToSend.append("name", formData.name);
-      formDataToSend.append("description", formData.description);
-      formDataToSend.append("phone", formData.phone);
-      formDataToSend.append("email", formData.email);
-      if (formData.image) {
-        formDataToSend.append("image", formData.image);
-      }
+      const formDataToSend = {
+        name: formData.name,
+        description: formData.description,
+      };
 
-      await Axios.patch(`/creator/${slug}`, formDataToSend, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      await Axios.patch(`/creator/${slug}`, formDataToSend);
 
       setLoading(false);
-      window.location.href = "/admin/dashboard"; // Use window.location.href to navigate to the desired page
+      window.location.href = "/admin/creator"; // Use window.location.href to navigate to the desired page
     } catch (error) {
       setLoading(false);
       console.error(error);
@@ -66,11 +74,18 @@ const EditCreatorForm = () => {
       const response = await Axios.get(`/creator/${slug}`);
       const { data } = response;
 
+      // Set older data to the state so that it preloads the form fields
+      setOldData({
+        name: data.name,
+        description: data.description,
+        image: null, // Since we are not preloading the image, set it to null
+      });
+
+      // Set form data to the older data initially
       setFormData({
         name: data.name,
         description: data.description,
-        phone: data.phone,
-        email: data.email,
+        image: null, // Since we are not preloading the image, set it to null
       });
     } catch (error) {
       console.log(error.response);
@@ -80,7 +95,6 @@ const EditCreatorForm = () => {
   useEffect(() => {
     fetchCreatorDetails();
   }, []);
-
   return (
     <form
       onSubmit={handleSubmit}
@@ -108,58 +122,67 @@ const EditCreatorForm = () => {
               />
             </div>
 
-            <div>
-              <label htmlFor="description">Description</label>
-              <textarea
-                name="description"
-                id="description"
-                className="h-20 border mt-1 rounded px-4 w-full bg-gray-50"
-                value={formData.description}
-                onChange={handleInputChange}
-                required
-              ></textarea>
-            </div>
-
-            <div>
-              <label htmlFor="phone">Phone</label>
-              <input
-                type="text"
-                name="phone"
-                id="phone"
-                className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                value={formData.phone}
-                onChange={handleInputChange}
-                required
-              />
-            </div>
-
-            <div>
-              <label htmlFor="email">Email</label>
-              <input
-                type="email"
-                name="email"
-                id="email"
-                className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                value={formData.email}
-                onChange={handleInputChange}
-                required
-              />
+            <div className="col-span-3">
+              <div className="w-full">
+                <label htmlFor="description">Description</label>
+                <textarea
+                  name="description"
+                  id="description"
+                  className="h-20 border mt-1 rounded px-4 w-full bg-gray-50"
+                  value={formData.description}
+                  onChange={handleInputChange}
+                  required
+                ></textarea>
+              </div>
             </div>
 
             <div className="col-span-3">
               <div className="flex items-center mb-4 mt-3">
-                <label htmlFor="image" className="mr-2">
-                  Image:
+                <label htmlFor="thumbnail" className="mr-2">
+                  Thumbnail:
                 </label>
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={handleImageChange}
-                  className="border border-gray-300 p-2"
-                />
+                <button
+                  type="button"
+                  onClick={handleUpdateThumbnail}
+                  className="bg-violet-500 hover:bg-violet-700  text-white py-1 px-2  focus:outline-none focus:ring-2 focus:ring-gray-500"
+                >
+                  Update Thumbnail
+                </button>
               </div>
-            </div>
 
+              {/* Other code... */}
+            </div>
+            {showModal && (
+              <div className="fixed inset-0 flex items-center justify-center z-10 bg-gray-500 bg-opacity-50">
+                <div className="bg-white rounded shadow-lg p-4">
+                  <h2 className="text-lg font-semibold mb-4">
+                    Update Thumbnail
+                  </h2>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => setThumbnail(e.target.files[0])}
+                    className="border border-gray-300 p-2"
+                  />
+                  <div className="mt-4 flex justify-end">
+                    <button
+                      type="button"
+                      onClick={handleCloseModal}
+                      className="text-gray-500 hover:text-gray-700 px-4 py-2"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      onClick={uploadThumbnail}
+                      type="submit"
+                      className="bg-violet-500 hover:bg-violet-700 text-white px-4 py-2 ml-2"
+                    >
+                      Upload
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
             <div className="col-span-3">
               <button
                 type="submit"
