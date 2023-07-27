@@ -1,5 +1,4 @@
 import Dashboard from "@/app/components/Dashboard";
-// import Dashboard2 from "@/app/components/Dashboard2";
 
 export const metadata = {
   title: "Dashboard | CPET Online",
@@ -7,7 +6,6 @@ export const metadata = {
 };
 function page() {
   return <>
-  {/* <Dashboard2 /> */}
   <Dashboard />
   </>;
 }

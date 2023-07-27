@@ -115,7 +115,7 @@ function Dashboard() {
         </Link>
 
         <Link
-          href={"/admin/dashboard"}
+          href={"/admin/user"}
           className="p-6 m-auto bg-white border border-indigo-100 rounded-xl hover:bg-indigo-100"
         >
           <motion.div
