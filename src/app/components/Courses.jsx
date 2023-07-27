@@ -80,7 +80,7 @@ function Courses() {
 
                 <div className="px-7 pt-4 pb-2 mt-3 mb-2">
                   <span className="inline-block bg-gray-200  group-hover:bg-indigo-700 group-hover:text-white transition rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-                    #{course.category.name}
+                    #{course.category?.name}
                   </span>
                 </div>
                 <div className="px-7">
