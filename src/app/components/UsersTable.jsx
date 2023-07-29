@@ -37,7 +37,7 @@ const CoursesTable = () => {
       <main className="h-full pb-16 overflow-y-auto">
         <div className="container grid px-6 mx-auto">
           <h2 className="my-6 text-2xl font-semibold text-gray-700">Tables</h2>
-          <a
+          <Link
             className="flex items-center justify-between p-4 mb-8 text-sm font-semibold text-purple-100 bg-purple-600 rounded-lg shadow-md focus:outline-none focus:shadow-outline-purple"
             href="https://github.com/estevanmaito/windmill-dashboard"
           >
@@ -46,8 +46,7 @@ const CoursesTable = () => {
               <span>Star this project on GitHub</span>
             </div>
             <span>View more →</span>
-          </a>
-          {/* With actions */}
+          </Link>          {/* With actions */}
           <h4 className="mb-4 text-lg font-semibold text-gray-600">
             Table with actions
           </h4>

@@ -1,7 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Axios from "../Axios";
-import Link from "next/link";
 
 function CategoryTable() {
   const [categories, setCategories] = useState([]);

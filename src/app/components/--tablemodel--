@@ -12,8 +12,7 @@
         <span>Star this project on GitHub</span>
       </div>
       <span>View more →</span>
-    </a>
-    {/* With actions */}
+    </Link>    {/* With actions */}
     <h4 className="mb-4 text-lg font-semibold text-gray-600">
       Table with actions
     </h4>

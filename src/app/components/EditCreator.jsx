@@ -16,7 +16,7 @@ const EditCreatorForm = () => {
 
   const [loading, setLoading] = useState(false);
   const [oldData, setOldData] = useState({
-    name: "", // Initialize with empty values
+    name: "",
     description: "",
     image: null,
   });
@@ -38,10 +38,10 @@ const EditCreatorForm = () => {
         }
       );
       setShowModal(false);
-      // Optionally, you can also update the thumbnail in the form state:
+    
       setFormData((prevFormData) => ({
         ...prevFormData,
-        image: response.data.thumbnailUrl, // Set the image URL returned from the server
+        image: response.data.thumbnailUrl,
       }));
     } catch (error) {
       console.error(error.response);
@@ -71,7 +71,7 @@ const EditCreatorForm = () => {
       await Axios.patch(`/creator/${slug}`, formDataToSend);
 
       setLoading(false);
-      window.location.href = "/admin/creator"; // Use window.location.href to navigate to the desired page
+      window.location.href = "/admin/creator"; 
     } catch (error) {
       setLoading(false);
       console.error(error);
@@ -83,18 +83,16 @@ const EditCreatorForm = () => {
       const response = await Axios.get(`/creator/${slug}`);
       const { data } = response;
 
-      // Set older data to the state so that it preloads the form fields
       setOldData({
         name: data.name,
         description: data.description,
-        image: null, // Since we are not preloading the image, set it to null
+        image: null, 
       });
 
-      // Set form data to the older data initially
       setFormData({
         name: data.name,
         description: data.description,
-        image: null, // Since we are not preloading the image, set it to null
+        image: null, 
       });
     } catch (error) {
       console.log(error.response);
@@ -159,7 +157,6 @@ const EditCreatorForm = () => {
                 </button>
               </div>
 
-              {/* Other code... */}
             </div>
             {showModal && (
               <div className="fixed inset-0 flex items-center justify-center z-10 bg-gray-500 bg-opacity-50">

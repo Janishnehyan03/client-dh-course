@@ -1,4 +1,5 @@
 import React from 'react'
+import Link from "next/link";
 
 function HeroSection() {
   return (<div className="relative items-center justify-center w-full overflow-x-hidden lg:pt-40 lg:pb-40 xl:pt-40 xl:pb-64">
@@ -8,8 +9,8 @@ function HeroSection() {
         Next
         Great Thing</h1>
       <p className="pr-0 mb-8 text-base text-gray-600 sm:text-lg xl:text-xl lg:pr-20">Are you prepared to embark on an exciting journey and begin your learning experience with CPET to advance your career?</p>
-      <a href={"/register"} className="relative self-start inline-block w-auto px-8 py-4 mx-auto mt-0 text-base font-bold text-white bg-indigo-600 border-t border-gray-200 rounded-md shadow-xl sm:mt-1 fold-bold lg:mx-0">Signup
-        Today!</a>
+      <Link href={"/register"} className="relative self-start inline-block w-auto px-8 py-4 mx-auto mt-0 text-base font-bold text-white bg-indigo-600 border-t border-gray-200 rounded-md shadow-xl sm:mt-1 fold-bold lg:mx-0">Signup
+        Today!</Link>
       {/* Integrates with section */}
       <div className="flex-col hidden mt-12 sm:flex lg:mt-24">
         <p className="mb-4 text-sm font-medium tracking-widest text-gray-500 uppercase">Integrates With</p>

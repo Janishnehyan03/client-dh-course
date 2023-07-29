@@ -1,4 +1,5 @@
 import React from 'react'
+import Link from "next/link";
 
 function Features() {
   return (
@@ -51,8 +52,8 @@ function Features() {
           </svg>
           <h4 className="relative mt-6 text-lg font-bold">Video Classes</h4>
           <p className="relative mt-2 text-base text-center text-gray-600">Simplify learning with video classes for effortless knowledge acquisition.</p>
-          <a href="#_" className="relative flex mt-2 text-sm font-medium text-indigo-500 underline">Learn
-            More</a>
+          <Link href="#_" className="relative flex mt-2 text-sm font-medium text-indigo-500 underline">Learn
+            More</Link>
         </div>
       </div>
       <div className="w-full max-w-md p-4 mx-auto mb-0 sm:mb-16 lg:mb-0 lg:w-1/3">
@@ -99,8 +100,8 @@ function Features() {
           <h4 className="relative mt-6 text-lg font-bold">Practical Sessions</h4>
           <p className="relative mt-2 text-base text-center text-gray-600">
 Apply video class knowledge through hands-on practical sessions.</p>
-          <a href="#_" className="relative flex mt-2 text-sm font-medium text-indigo-500 underline">Learn
-            More</a>
+          <Link href="#_" className="relative flex mt-2 text-sm font-medium text-indigo-500 underline">Learn
+            More</Link>
         </div>
       </div>
       <div className="w-full max-w-md p-4 mx-auto mb-16 lg:mb-0 lg:w-1/3">
@@ -146,8 +147,8 @@ Apply video class knowledge through hands-on practical sessions.</p>
           </svg>
           <h4 className="relative mt-6 text-lg font-bold">Smart Notifications</h4>
           <p className="relative mt-2 text-base text-center text-gray-600">Stay informed with intelligent, timely notifications for reminders.</p>
-          <a href="#_" className="relative flex mt-2 text-sm font-medium text-indigo-500 underline">Learn
-            More</a>
+          <Link href="#_" className="relative flex mt-2 text-sm font-medium text-indigo-500 underline">Learn
+            More</Link>
         </div>
       </div>
     </div>

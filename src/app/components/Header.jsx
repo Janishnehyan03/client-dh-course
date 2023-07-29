@@ -40,7 +40,7 @@ function Header() {
   return (
     <header className="relative z-50 w-full h-24 overflow-visible">
       <div className="container flex items-center justify-between h-full max-w-6xl px-8 mx-auto sm:justify-between xl:px-0">
-        <a
+        <Link
           href={"/"}
           className="relative flex items-center h-full font-black leading-none"
         >
@@ -48,21 +48,19 @@ function Header() {
           <span className="ml-3 text-xl text-gray-800">
             CPET<span className="text-pink-500">.</span>
           </span>
-        </a>
-        <nav
+        </Link>        <nav
           id="nav"
           onClick={handleMobileNavToggle}
           className={`absolute top-0 left-0 z-50 flex flex-col items-center justify-between ${
             isMobileNavClosed ? "hidden" : ""
           } w-full h-64 pt-5 mt-24 text-sm text-gray-800 bg-white border-t border-gray-200 md:w-auto md:flex-row md:h-24 lg:text-base md:bg-transparent md:mt-0 md:border-none md:py-0 md:flex md:relative`}
         >
-          <a
+          <Link
             href="/"
             className="ml-0 mr-0 font-bold duration-100 md:ml-12 md:mr-3 lg:mr-8 transition-color hover:text-indigo-600"
           >
             Home
-          </a>
-          <Link
+          </Link>          <Link
             href={"/course"}
             className="mr-0 font-bold duration-100 md:mr-3 lg:mr-8 transition-color hover:text-indigo-600"
           >
