@@ -69,7 +69,7 @@ const CoursesTable = () => {
                     ₹{course?.price}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    {course?.creator?.name}
+                    {course?.creators[0]?.name}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <Link

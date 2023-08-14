@@ -85,11 +85,11 @@ function CourseDetails() {
               <div className="text-gray-700 flex items-center">
                 <span>Created by: </span>
                 <img
-                  src={course?.creator?.image}
-                  alt={course?.creator?.name}
-                  className="ml-2 mr-1 rounded-full h-9"
+                  src={course?.creators[0]?.image}
+                  alt={course?.creators[0]?.name}
+                  className="ml-2 mr-1 rounded-full h-9 w-9"
                 />
-                <span className="font-bold">{course?.creator?.name}</span>
+                <span className="font-bold">{course?.creators[0]?.name}</span>
               </div>
             </div>
             <div className="flex items-center mb-4">

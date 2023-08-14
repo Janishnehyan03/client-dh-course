@@ -46,7 +46,7 @@ const CoursesTable = () => {
               <span>Star this project on GitHub</span>
             </div>
             <span>View more →</span>
-          </Link>          {/* With actions */}
+          </Link>
           <h4 className="mb-4 text-lg font-semibold text-gray-600">
             Table with actions
           </h4>
@@ -98,7 +98,7 @@ const CoursesTable = () => {
                           </span>
                         </td>
                         <td className="px-4 py-3 text-sm">
-                          {course?.creator?.name}
+                          {course?.creators[0]?.name}
                         </td>
 
                         <td className="px-4 py-3">
@@ -205,7 +205,6 @@ const CoursesTable = () => {
           </div>
         </div>
       </main>
-
     </>
   );
 };
